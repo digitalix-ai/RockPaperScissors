@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rock Paper Scissors</title>
+</head>
+
+<body bgcolor="#000000">
+    <div id="start_screen">
+      <img src="RockPaperScissors.png" width="1340" height="810" style="display:block;margin-left: auto; margin-right: auto;"/>
+      <button style="color: white; background-color: #555555;font-size:50px;height:100px;width:200px;display: block; margin:auto;" onclick="ShowSelectionScreen()">Play</button>
+    </div>
+
+    <div id="selection_screen" hidden>
+        <p style="color:white; font-size: 100px;" align="middle">Make a selection!</p>
+        <button onclick="UserClickedRock()" style="height:300px; width:300px; background: url(Rock.png); background-size:100% 100%;margin-left: 10px;"></button>
+        <button onclick="UserClickedPaper()" style="height:300px; width:300px; background: url(Paper.png); background-size:100% 100%;margin-left: 500px;"></button>
+        <button onclick="UserClickedScissors()" style="height:300px; width:300px; background: url(Scissors.png); background-size:100% 100%;margin-left: 450px;"></button>
+    </div>
+
+    <div id="vs_screen" align="center" style="height:100%; width:100%; padding-top: 300px;" hidden>
+        <img id="userChoice" width="400" height="400"  style="vertical-align: middle;"/>
+        <img src="VS.png" width="400" height="400" style="vertical-align: middle;" />
+        <img id="cpuChoice" width="400" height="400" style="vertical-align: middle;"/>
+      </div>
+
+    <script>
+    
+    var startScreen = document.getElementById("start_screen");
+    var selectionScreen = document.getElementById("selection_screen");
+    var vsScreen = document.getElementById("vs_screen");
+    const ROCK = "rock";
+    const PAPER = "paper";
+    const SCISSORS = "scissors";
+    var myChoice = "";
+    var rockImageURL = "Rock.png";
+    var paperImageURL = "Paper.png";
+    var scissorsImageURL = "Scissors.png";
+    var choices = [ROCK, PAPER, SCISSORS];
+    var cpuChoice = "";
+
+
+
+    function ShowSelectionScreen()
+    {
+        selectionScreen.hidden = false;
+        startScreen.hidden = true;
+        vsScreen.hidden = true;
+    }
+
+    function ShowVSScreen()
+    {
+        selectionScreen.hidden = true;
+        startScreen.hidden = true;
+        vsScreen.hidden = false;
+        var userChoice = document.getElementById("userChoice")
+        switch(myChoice)
+        {
+            case ROCK:
+                userChoice.src = rockImageURL;
+                break;
+            case PAPER:
+                userChoice.src = paperImageURL;
+                break;
+            case SCISSORS:
+                userChoice.src = scissorsImageURL;
+                break;
+        }
+        var computerChoice = document.getElementById("cpuChoice");
+        ComputerMakeChoice();
+        switch(cpuChoice)
+        {
+            case ROCK:
+                computerChoice.src = rockImageURL;
+                break;
+            case PAPER:
+                computerChoice.src = paperImageURL;
+                break;
+            case SCISSORS:
+                computerChoice.src = scissorsImageURL;
+                break;
+        }
+        setTimeout(CheckWhoWon, 500);
+    }
+
+    function UserClickedRock()
+    {
+        myChoice = ROCK;
+        ShowVSScreen();
+    }
+
+    function UserClickedPaper()
+    {
+        myChoice = PAPER;
+        ShowVSScreen();
+    }
+
+    function UserClickedScissors()
+    {
+        myChoice = SCISSORS;
+        ShowVSScreen();
+    }
+
+    function ComputerMakeChoice()
+    {
+        var randomNumber = Math.round(Math.random() * 2);
+        cpuChoice = choices[randomNumber];
+    }
+
+    function CheckWhoWon()
+    {
+        if(myChoice === cpuChoice)
+        {
+            alert("Tie");
+            ShowSelectionScreen();
+        }
+        else if(myChoice === ROCK)
+        {
+            if(cpuChoice === PAPER)
+            {
+                alert("You Lose!");
+                ShowSelectionScreen();
+            }
+            else
+            {
+                alert("You Win!");
+                ShowSelectionScreen();
+            }
+        }
+        else if(myChoice === PAPER)
+        {
+            if(cpuChoice === ROCK)
+            {
+                alert("You Win!");
+                ShowSelectionScreen();
+            }
+            else
+            {
+                alert("You Lose!");
+                ShowSelectionScreen();
+            }
+        }
+        else
+        {
+            if(cpuChoice === ROCK)
+            {
+                alert("You Lose!");
+                ShowSelectionScreen();
+            }
+            else
+            {
+                alert("You Win!");
+                ShowSelectionScreen();
+            }
+        }
+    }
+
+    </script>
+</body>
+
+</html>
